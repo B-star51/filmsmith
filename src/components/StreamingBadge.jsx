@@ -9,6 +9,10 @@ const STYLES = {
   Netflix: 'bg-red-600/20 text-red-300 ring-red-500/30 hover:bg-red-600/35',
   'Prime Video': 'bg-sky-500/20 text-sky-300 ring-sky-400/30 hover:bg-sky-500/35',
   'Disney+': 'bg-blue-600/20 text-blue-300 ring-blue-400/30 hover:bg-blue-600/35',
+  Hulu: 'bg-green-500/20 text-green-300 ring-green-400/30 hover:bg-green-500/35',
+  'HBO Max': 'bg-indigo-500/20 text-indigo-300 ring-indigo-400/30 hover:bg-indigo-500/35',
+  'Paramount+': 'bg-cyan-500/20 text-cyan-300 ring-cyan-400/30 hover:bg-cyan-500/35',
+  'Apple TV+': 'bg-white/15 text-white/85 ring-white/25 hover:bg-white/25',
   Cinema: 'bg-gold/20 text-gold ring-gold/40 hover:bg-gold/30',
 };
 
@@ -16,6 +20,10 @@ const LABELS = {
   Netflix: 'Netflix',
   'Prime Video': 'Prime',
   'Disney+': 'Disney+',
+  Hulu: 'Hulu',
+  'HBO Max': 'HBO Max',
+  'Paramount+': 'Paramount+',
+  'Apple TV+': 'Apple TV+',
   Cinema: 'In Cinema',
 };
 
