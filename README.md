@@ -130,30 +130,14 @@ watchworthy/
 
 ## Architecture diagram
 
-```
-┌─────────────────────────────────────────────────────────────┐
-│                         React UI (Vite)                       │
-│  Home / Profile · MovieCard · AgentModal · OnboardingQuiz     │
-└───────────────┬───────────────────────────┬──────────────────┘
-                │ user answers + profile     │ reads
-                ▼                             ▼
-        ┌───────────────┐            ┌──────────────────┐
-        │  agent.js     │            │ useUserProfile    │
-        │  (reasoning   │◀──profile──│  (localStorage)   │
-        │   orchestrator)│           └──────────────────┘
-        └───────┬───────┘
-                │ builds prompt (system + dataset + profile + session)
-        ┌───────┴───────────────────────────────┐
-        ▼                ▼                        ▼
-  ┌──────────┐    ┌──────────────┐        ┌────────────────┐
-  │ Claude   │    │ GitHub Models│        │ local fallback │
-  │ Sonnet 4 │    │  agent       │        │ reasoning eng. │
-  └──────────┘    └──────────────┘        └────────────────┘
-        └────────────────┴──── strict JSON ─────┘
-                reasoning_steps · primary · backup · explanation
-```
+![WatchWorthy architecture — GitHub Copilot build workflow and the Claude runtime agent loop](docs/architecture.svg)
 
-> Want an editable version? Drop this into a [FigJam](https://figma.com/figjam) board for the submission.
+The diagram shows both halves the rules ask for:
+
+- **Build / dev workflow** — **GitHub Copilot** as the AI pair-programmer (agent loop, tests, refactors) → Git → GitHub → Vite build → installable PWA.
+- **Runtime** — the **WatchWorthy Agent** runs a multi-step tool-use loop against **Claude (`claude-sonnet-4-6`)** or GitHub Models, calling local tools (`filter` · `history` · `score`) over the bundled 77-film dataset, with a local reasoning engine as an offline-safe fallback, plus the WatchWorthy Score, the Live Critic Feed, and the PWA service worker.
+
+> Source is [`docs/architecture.svg`](docs/architecture.svg) — editable vector you can tweak or drop into a slide.
 
 ---
 
