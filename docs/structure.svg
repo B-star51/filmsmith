@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 656" font-family="JetBrains Mono, Consolas, ui-monospace, monospace">
+  <defs>
+    <style>
+      .path  { font-size: 14px; fill: #E7E7EE; }
+      .dir   { font-size: 14px; fill: #9F67FF; font-weight: 700; }
+      .tree  { fill: #54546a; }
+      .cmt   { font-size: 12.5px; fill: #8A8A99; }
+      .star  { fill: #F59E0B; }
+    </style>
+  </defs>
+
+  <rect width="920" height="656" fill="#0A0A0F" />
+  <rect x="20" y="20" width="880" height="616" rx="16" fill="#12121A" stroke="rgba(255,255,255,0.10)" />
+
+  <!-- header -->
+  <circle cx="48" cy="52" r="6" fill="#ff5f56" />
+  <circle cx="70" cy="52" r="6" fill="#ffbd2e" />
+  <circle cx="92" cy="52" r="6" fill="#27c93f" />
+  <text x="120" y="57" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="15" font-weight="700" fill="#E7E7EE">Project structure</text>
+
+  <line x1="36" y1="74" x2="884" y2="74" stroke="rgba(255,255,255,0.08)" />
+
+  <!-- highlight band for the agent line -->
+  <rect x="36" y="196" width="848" height="24" rx="6" fill="rgba(124,58,237,0.12)" />
+
+  <!-- tree -->
+  <g>
+    <text x="44" y="110"><tspan class="dir">watchworthy/</tspan></text>
+
+    <text x="44" y="138"><tspan class="tree">├── </tspan><tspan class="dir">src/</tspan></text>
+
+    <text x="44" y="166"><tspan class="tree">│   ├── </tspan><tspan class="path">data/movies.js</tspan></text>
+    <text x="360" y="166" class="cmt"># hardcoded dataset — 77 films, 7 platforms</text>
+
+    <text x="44" y="194"><tspan class="tree">│   ├── </tspan><tspan class="path">lib/agent.js</tspan></text>
+    <text x="360" y="194" class="cmt"># multi-step reasoning agent — Claude + GitHub + local fallback</text>
+
+    <text x="44" y="214"><tspan class="tree">│   │</tspan></text>
+    <text x="44" y="214" text-anchor="start"><tspan x="44" class="star" font-size="12.5"> </tspan></text>
+    <text x="346" y="214" class="star" font-size="13" font-weight="700">★ the brain</text>
+
+    <text x="44" y="242"><tspan class="tree">│   ├── </tspan><tspan class="path">lib/watchworthyScore.js</tspan></text>
+    <text x="360" y="242" class="cmt"># explainable match score (pure JS, instant)</text>
+
+    <text x="44" y="270"><tspan class="tree">│   ├── </tspan><tspan class="path">lib/criticFeed.js</tspan></text>
+    <text x="360" y="270" class="cmt"># Live Critic Feed — Claude web search, cached 6h</text>
+
+    <text x="44" y="298"><tspan class="tree">│   ├── </tspan><tspan class="path">hooks/useUserProfile.js</tspan></text>
+    <text x="360" y="298" class="cmt"># localStorage-backed taste profile</text>
+
+    <text x="44" y="326"><tspan class="tree">│   ├── </tspan><tspan class="dir">components/</tspan></text>
+    <text x="360" y="326" class="cmt"># MovieCard · HeroCard · MovieRow · AgentModal</text>
+
+    <text x="44" y="350"><tspan class="tree">│   │</tspan></text>
+    <text x="360" y="350" class="cmt"># AgentThinking · CriticFeed · OnboardingQuiz · …</text>
+
+    <text x="44" y="378"><tspan class="tree">│   ├── </tspan><tspan class="dir">pages/</tspan></text>
+    <text x="360" y="378" class="cmt"># Home · Profile</text>
+
+    <text x="44" y="406"><tspan class="tree">│   ├── </tspan><tspan class="path">App.jsx</tspan></text>
+    <text x="360" y="406" class="cmt"># shell, routing, modal state</text>
+
+    <text x="44" y="434"><tspan class="tree">│   └── </tspan><tspan class="path">main.jsx</tspan></text>
+    <text x="360" y="434" class="cmt"># entry + PWA service-worker registration</text>
+
+    <text x="44" y="462"><tspan class="tree">├── </tspan><tspan class="dir">public/</tspan></text>
+    <text x="360" y="462" class="cmt"># icons · manifest.webmanifest · sw.js  (PWA)</text>
+
+    <text x="44" y="490"><tspan class="tree">├── </tspan><tspan class="dir">docs/</tspan></text>
+    <text x="360" y="490" class="cmt"># banner.svg · logo.svg · architecture.svg · structure.svg</text>
+
+    <text x="44" y="518"><tspan class="tree">├── </tspan><tspan class="path">.env.example</tspan></text>
+    <text x="360" y="518" class="cmt"># VITE_ANTHROPIC_API_KEY / VITE_GITHUB_TOKEN</text>
+
+    <text x="44" y="546"><tspan class="tree">└── </tspan><tspan class="path">README.md</tspan></text>
+  </g>
+
+  <line x1="36" y1="574" x2="884" y2="574" stroke="rgba(255,255,255,0.08)" />
+  <text x="44" y="600" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="12.5" fill="#6f6f86">
+    React 18 + Vite + Tailwind  ·  works fully offline except the live agent call  ·  installable PWA
+  </text>
+</svg>

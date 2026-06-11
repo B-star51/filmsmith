@@ -115,20 +115,7 @@ npm run preview    # preview the production build
 
 ## Project structure
 
-```
-watchworthy/
-├── src/
-│   ├── data/movies.js          # hardcoded dataset
-│   ├── lib/agent.js            # ★ the multi-step reasoning agent (Claude + GitHub + local fallback)
-│   ├── hooks/useUserProfile.js # localStorage-backed profile
-│   ├── components/             # MovieCard, HeroCard, MovieRow, AgentModal,
-│   │                           #   OnboardingQuiz, FeedbackModal, SettingsModal, …
-│   ├── pages/                  # Home, Profile
-│   ├── App.jsx                 # shell, routing, modal state
-│   └── main.jsx
-├── .env.example
-└── README.md
-```
+![WatchWorthy project structure](docs/structure.svg)
 
 ---
 
