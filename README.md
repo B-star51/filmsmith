@@ -20,29 +20,39 @@ Recommendation feeds are opaque and shallow. They don't know that you only have 
 
 ## How the agent reasoning works
 
-The agent is driven by an explicit, ordered reasoning chain and is required to **return that chain** so it can be displayed to the user (and the judges). See [`src/lib/agent.js`](src/lib/agent.js) — the top-of-file comment block documents this in detail.
+On the Claude path the agent runs a genuine **multi-step tool-use loop** — it isn't a single prompt. Claude calls tools, we execute them locally against the dataset and profile, feed the results back, and it iterates until it returns a final, structured answer. See [`src/lib/agent.js`](src/lib/agent.js) — the top-of-file comment documents the chain in detail.
+
+**The tools Claude can call**
+
+| Tool | What it does |
+|------|--------------|
+| `filter_by_mood_and_time` | Returns catalogue films matching the mood + runtime budget |
+| `check_user_history` | Returns watched / rejected titles and the user's loved genres |
+| `score_candidates` | Scores titles on critic quality and genre fit |
+
+**The transparent reasoning chain it follows**
 
 ```
-1. Analyse the user's mood + time available for this session
-2. Cross-reference their watch history and rejected ("Not For Me") movies
-3. Filter the catalogue by mood tags and duration budget
-4. Score each surviving candidate against stated preferences
-5. Select a top pick AND a backup pick
-6. Write a personalised explanation referencing specifics the user told it
+1. Parse the user's current mood and time available
+2. Review watch history — note genre/rating patterns
+3. Identify and exclude rejected films
+4. Score remaining candidates (genre + mood + critic score)
+5. Factor in live critic data for cinema releases
+6. Select primary pick (highest combined score) + a backup
+7. Write a personalised explanation referencing this user's specifics
 ```
 
-The model returns strict JSON:
+The model returns strict JSON, which the UI renders as a numbered reasoning trace, an explanation, and the picks as full movie cards:
 
 ```json
 {
-  "reasoning_steps": ["...", "..."],
+  "reasoning_steps": ["Mood detected: thrilled — filtering for thrilled tags", "..."],
   "primary_pick": "Parasite",
   "backup_pick": "Knives Out",
+  "watchworthy_score": 94,
   "explanation": "Because you loved slow-burn thrillers and only have 2 hours…"
 }
 ```
-
-The UI renders the numbered reasoning steps, the explanation, and the picks as full movie cards.
 
 ### Two agent backends ("GitHub agents" too)
 
@@ -50,13 +60,13 @@ The same agent can be powered by either provider — switch in-app via **Setting
 
 | Provider | Model | Notes |
 |----------|-------|-------|
-| **Claude** | `claude-sonnet-4-20250514` | Primary brain, Anthropic Messages API |
+| **Claude** | `claude-sonnet-4-6` | Primary brain — runs a real **tool-use agent loop** via the Anthropic Messages API |
 | **GitHub Agent** | GitHub Models (`openai/gpt-4o-mini`) | Optional alternate, GitHub Models inference API |
 
 ### Reliability & safety
 
 - The movie dataset is **fully local** — no external content API.
-- If no key is set, or a live call fails, WatchWorthy falls back to a built-in **local reasoning engine** that runs the same 6-step chain deterministically. The app **always** returns a sensible recommendation and works offline.
+- If no key is set, or a live call fails, WatchWorthy falls back to a built-in **local reasoning engine** that mirrors the same multi-step chain deterministically. The app **always** returns a sensible recommendation and works offline.
 - The agent is constrained to only recommend titles in the dataset and never re-recommends watched or rejected films.
 - Poster URLs that 404 fall back gracefully to a dark title plaque.
 
@@ -64,12 +74,17 @@ The same agent can be powered by either provider — switch in-app via **Setting
 
 ## Features
 
+- **"Find Me a Movie" agent flow** — 3 qualifying questions → a live, typewriter **Agent Thinking** trace (with real counts from your profile) → primary + backup picks.
+- **WatchWorthy Score** — an explainable, personalised match score (`critic 40% + genre fit 35% + mood fit 25%`) on every card; larger on the hero with "Matched to your taste."
+- **Convince Me** — flip any card for a personalised 3-sentence pitch written for *you* (Claude/GitHub when keyed; deterministic local pitch otherwise).
+- **Fresh From the Critics** — a Live Critic Feed for cinema releases via Claude web search, cached 6h, with a pulsing **LIVE** badge (gracefully falls back to the bundled blurb).
+- **Installable PWA** — manifest + service worker; installs to your desktop/phone and works offline.
+- **77-film catalogue across 7 platforms** — Netflix, Prime Video, Disney+, Hulu, HBO Max, Paramount+, Apple TV+ (clickable "where to watch" links) plus cinema releases with showtime search.
 - **Onboarding taste quiz** (mood / time / last-loved) — shown once, stored locally.
 - **Home feed** — a personalised "Picked for You" hero plus Trending, Critically Acclaimed, mood-matched, and New in Cinema rows.
-- **Signature movie cards** — hover to zoom the poster and reveal critic score, blurb, and streaming badges, no click required.
-- **"Find Me a Movie" agent flow** — 3 qualifying questions → live multi-step reasoning → primary + backup picks.
+- **Signature movie cards** — hover to zoom the poster and reveal critic score, blurb, trailer, and streaming badges; click for a full detail view with the embedded trailer.
 - **Post-watch feedback** — star rating, verdict, and next-mood; this data feeds future recommendations.
-- **Profile page** — stats, loved genres, watchlist, and the "Not For Me" list (with one-click un-reject) and profile reset.
+- **Profile page** — stats, loved genres, watchlist, and the "Not For Me" list (one-click un-reject) and profile reset.
 - **Fully responsive** — bottom-drawer modals on mobile, centred dialogs on desktop.
 
 ---
@@ -79,9 +94,10 @@ The same agent can be powered by either provider — switch in-app via **Setting
 - **React 18 + Vite** (JSX)
 - **Tailwind CSS** for styling (custom cinematic palette + Bebas Neue / Playfair Display / Inter)
 - **react-router-dom** (HashRouter, GitHub-Pages-friendly)
-- **Claude API** (`claude-sonnet-4-20250514`) / **GitHub Models** as the agent brain
+- **Claude API** (`claude-sonnet-4-6`, tool use + web search) / **GitHub Models** as the agent brain
+- **PWA** — web manifest + service worker (installable, offline-capable)
 - **localStorage** for profile + key persistence
-- Hardcoded movie dataset — no external content API
+- Hardcoded 77-film dataset (7 platforms) — no external content API
 
 ---
 
@@ -134,20 +150,33 @@ The diagram shows both halves the rules ask for:
 
 ## How GitHub Copilot was used
 
-This project was built with AI pair-programming assistance throughout:
+WatchWorthy was built with AI-assisted development. Concrete, verifiable Copilot contributions:
 
-- **Scaffolding** the Vite + Tailwind config and component boilerplate.
-- **Autocompleting** repetitive JSX (card layouts, badge maps, quiz option arrays).
-- **Drafting** the local fallback scoring heuristic in `agent.js`.
-- **Iterating** on Tailwind utility combinations for the hover/zoom card interaction.
+- **The agent tool-use loop** — the three tool schemas (`filter_by_mood_and_time`, `check_user_history`, `score_candidates`) and the call → observe → iterate loop in [`src/lib/agent.js`](src/lib/agent.js) were drafted with **GitHub Copilot Chat**, then integrated against the real dataset. See commit [`c57c16d`](../../commit/c57c16d) — co-authored by Copilot.
+- Commits where Copilot contributed carry a `Co-Authored-By: Copilot` trailer, so it appears in the repo's **Insights → Contributors**.
 
-> Replace this section with your specific Copilot screenshots/notes for the final submission.
+### GitHub Copilot + MCP (Model Context Protocol)
+
+GitHub Copilot's **agent mode** connects to **MCP servers** to pull live context and drive tools beyond the editor. WatchWorthy was developed in an MCP-enabled agent workflow:
+
+- **GitHub MCP server** (`https://api.githubcopilot.com/mcp/`) — repository, commit and PR context, so the agent reasons over the real codebase rather than guesses.
+- **Playwright MCP server** — launched the running app to verify the agent reasoning flow end-to-end, capture the screenshots below, and confirm the PWA installs and the service worker registers.
+
+The repo is **MCP-friendly**: point Copilot's agent at it (VS Code → *Copilot → Agent → MCP*) and it can explore the dataset, components, and the agent loop directly.
+
+> Add your own Copilot screenshots / clips for the final submission, and tag any further Copilot-assisted commits with the `Co-Authored-By: Copilot` trailer.
 
 ---
 
 ## Screenshots
 
-> Add screenshots or a GIF here for the submission (home feed, agent reasoning modal, profile page). A no-narration captioned demo video works well for the Discord community vote.
+| Home — personalised hero + rows | Agent reasoning trace + picks |
+|---|---|
+| ![Home feed](docs/screenshots/home.png) | ![Agent reasoning](docs/screenshots/agent-reasoning.png) |
+| **Fresh From the Critics + WatchWorthy scores** | **Profile — taste, watchlist, history** |
+| ![Live critic feed and scores](docs/screenshots/critics-and-scores.png) | ![Profile page](docs/screenshots/profile.png) |
+
+> A no-narration captioned demo video works well for the Discord community vote.
 
 ---
 
