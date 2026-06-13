@@ -1,12 +1,12 @@
 <p align="center">
-  <img src="docs/banner.svg" alt="WatchWorthy — an AI film curator that reasons like a friend who knows your taste" width="100%" />
+  <img src="docs/banner.svg" alt="Filmsmith — an AI film curator that reasons like a friend who knows your taste" width="100%" />
 </p>
 
-# 🎬 WatchWorthy
+# 🎬 Filmsmith
 
 **An AI movie recommendation engine that *reasons* its way to your next film.**
 
-WatchWorthy is a Netflix-style web app with an embedded AI agent brain. Instead of a black-box "you might also like" rail, the agent thinks out loud — analysing your mood, your time budget, and everything you've watched and rejected — then shows you its reasoning chain before it recommends. Darker and more editorial than Netflix, it's built to feel like a premium film magazine went digital.
+Filmsmith is a Netflix-style web app with an embedded AI agent brain. Instead of a black-box "you might also like" rail, the agent thinks out loud — analysing your mood, your time budget, and everything you've watched and rejected — then shows you its reasoning chain before it recommends. Darker and more editorial than Netflix, it's built to feel like a premium film magazine went digital.
 
 > Submission for the **Microsoft Agents League Hackathon — Creative Apps track**.
 
@@ -14,7 +14,7 @@ WatchWorthy is a Netflix-style web app with an embedded AI agent brain. Instead 
 
 ## The problem it solves
 
-Recommendation feeds are opaque and shallow. They don't know that you only have 90 minutes tonight, that you're with your parents, or that you want to avoid anything sad. WatchWorthy treats recommendation as a **multi-step reasoning task**: it gathers context, filters, scores, and *explains*, the way a knowledgeable friend would.
+Recommendation feeds are opaque and shallow. They don't know that you only have 90 minutes tonight, that you're with your parents, or that you want to avoid anything sad. Filmsmith treats recommendation as a **multi-step reasoning task**: it gathers context, filters, scores, and *explains*, the way a knowledgeable friend would.
 
 ---
 
@@ -49,7 +49,7 @@ The model returns strict JSON, which the UI renders as a numbered reasoning trac
   "reasoning_steps": ["Mood detected: thrilled — filtering for thrilled tags", "..."],
   "primary_pick": "Parasite",
   "backup_pick": "Knives Out",
-  "watchworthy_score": 94,
+  "filmsmith_score": 94,
   "explanation": "Because you loved slow-burn thrillers and only have 2 hours…"
 }
 ```
@@ -66,7 +66,7 @@ The same agent can be powered by either provider — switch in-app via **Setting
 ### Reliability & safety
 
 - The movie dataset is **fully local** — no external content API.
-- If no key is set, or a live call fails, WatchWorthy falls back to a built-in **local reasoning engine** that mirrors the same multi-step chain deterministically. The app **always** returns a sensible recommendation and works offline.
+- If no key is set, or a live call fails, Filmsmith falls back to a built-in **local reasoning engine** that mirrors the same multi-step chain deterministically. The app **always** returns a sensible recommendation and works offline.
 - The agent is constrained to only recommend titles in the dataset and never re-recommends watched or rejected films.
 - Poster URLs that 404 fall back gracefully to a dark title plaque.
 
@@ -75,7 +75,7 @@ The same agent can be powered by either provider — switch in-app via **Setting
 ## Features
 
 - **"Find Me a Movie" agent flow** — 3 qualifying questions → a live, typewriter **Agent Thinking** trace (with real counts from your profile) → primary + backup picks.
-- **WatchWorthy Score** — an explainable, personalised match score (`critic 40% + genre fit 35% + mood fit 25%`) on every card; larger on the hero with "Matched to your taste."
+- **Filmsmith Score** — an explainable, personalised match score (`critic 40% + genre fit 35% + mood fit 25%`) on every card; larger on the hero with "Matched to your taste."
 - **Convince Me** — flip any card for a personalised 3-sentence pitch written for *you* (Claude/GitHub when keyed; deterministic local pitch otherwise).
 - **Fresh From the Critics** — a Live Critic Feed for cinema releases via Claude web search, cached 6h, with a pulsing **LIVE** badge (gracefully falls back to the bundled blurb).
 - **Installable PWA** — manifest + service worker; installs to your desktop/phone and works offline.
@@ -105,7 +105,7 @@ The same agent can be powered by either provider — switch in-app via **Setting
 
 ```bash
 git clone <your-repo-url>
-cd watchworthy
+cd filmsmith
 npm install
 
 # optional — add a key for the LIVE agent (works without one via local fallback)
@@ -131,18 +131,18 @@ npm run preview    # preview the production build
 
 ## Project structure
 
-![WatchWorthy project structure](docs/structure.svg)
+![Filmsmith project structure](docs/structure.svg)
 
 ---
 
 ## Architecture diagram
 
-![WatchWorthy architecture — GitHub Copilot build workflow and the Claude runtime agent loop](docs/architecture.svg)
+![Filmsmith architecture — GitHub Copilot build workflow and the Claude runtime agent loop](docs/architecture.svg)
 
 The diagram shows both halves the rules ask for:
 
 - **Build / dev workflow** — **GitHub Copilot** as the AI pair-programmer (agent loop, tests, refactors) → Git → GitHub → Vite build → installable PWA.
-- **Runtime** — the **WatchWorthy Agent** runs a multi-step tool-use loop against **Claude (`claude-sonnet-4-6`)** or GitHub Models, calling local tools (`filter` · `history` · `score`) over the bundled 77-film dataset, with a local reasoning engine as an offline-safe fallback, plus the WatchWorthy Score, the Live Critic Feed, and the PWA service worker.
+- **Runtime** — the **Filmsmith Agent** runs a multi-step tool-use loop against **Claude (`claude-sonnet-4-6`)** or GitHub Models, calling local tools (`filter` · `history` · `score`) over the bundled 77-film dataset, with a local reasoning engine as an offline-safe fallback, plus the Filmsmith Score, the Live Critic Feed, and the PWA service worker.
 
 > Source is [`docs/architecture.svg`](docs/architecture.svg) — editable vector you can tweak or drop into a slide.
 
@@ -150,14 +150,14 @@ The diagram shows both halves the rules ask for:
 
 ## How GitHub Copilot was used
 
-WatchWorthy was built with AI-assisted development. Concrete, verifiable Copilot contributions:
+Filmsmith was built with AI-assisted development. Concrete, verifiable Copilot contributions:
 
 - **The agent tool-use loop** — the three tool schemas (`filter_by_mood_and_time`, `check_user_history`, `score_candidates`) and the call → observe → iterate loop in [`src/lib/agent.js`](src/lib/agent.js) were drafted with **GitHub Copilot Chat**, then integrated against the real dataset. See commit [`c57c16d`](../../commit/c57c16d) — co-authored by Copilot.
 - Commits where Copilot contributed carry a `Co-Authored-By: Copilot` trailer, so it appears in the repo's **Insights → Contributors**.
 
 ### GitHub Copilot + MCP (Model Context Protocol)
 
-GitHub Copilot's **agent mode** connects to **MCP servers** to pull live context and drive tools beyond the editor. WatchWorthy was developed in an MCP-enabled agent workflow:
+GitHub Copilot's **agent mode** connects to **MCP servers** to pull live context and drive tools beyond the editor. Filmsmith was developed in an MCP-enabled agent workflow:
 
 - **GitHub MCP server** (`https://api.githubcopilot.com/mcp/`) — repository, commit and PR context, so the agent reasons over the real codebase rather than guesses.
 - **Playwright MCP server** — launched the running app to verify the agent reasoning flow end-to-end, capture the screenshots below, and confirm the PWA installs and the service worker registers.
@@ -173,7 +173,7 @@ The repo is **MCP-friendly**: point Copilot's agent at it (VS Code → *Copilot 
 | Home — personalised hero + rows | Agent reasoning trace + picks |
 |---|---|
 | ![Home feed](docs/screenshots/home.png) | ![Agent reasoning](docs/screenshots/agent-reasoning.png) |
-| **Fresh From the Critics + WatchWorthy scores** | **Profile — taste, watchlist, history** |
+| **Fresh From the Critics + Filmsmith scores** | **Profile — taste, watchlist, history** |
 | ![Live critic feed and scores](docs/screenshots/critics-and-scores.png) | ![Profile page](docs/screenshots/profile.png) |
 
 > A no-narration captioned demo video works well for the Discord community vote.

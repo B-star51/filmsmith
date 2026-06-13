@@ -20,7 +20,7 @@ function NavBar({ onSettings, watchlistCount }) {
     <header className="sticky top-0 z-40 border-b border-white/5 bg-ink/80 backdrop-blur-xl">
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3.5 sm:px-6">
         <NavLink to="/" className="text-display text-2xl leading-none text-white">
-          WATCH<span className="text-violet-soft">WORTHY</span>
+          FILM<span className="text-violet-soft">SMITH</span>
         </NavLink>
 
         <nav className="flex items-center gap-5">
@@ -141,7 +141,7 @@ export default function App() {
         />
 
         <footer className="mx-auto max-w-7xl px-4 pb-28 pt-10 text-center text-xs text-white/25 sm:px-6">
-          WatchWorthy · AI film curation · Built for the Microsoft Agents League Hackathon
+          Filmsmith · AI film curation · Built for the Microsoft Agents League Hackathon
         </footer>
       </div>
     </HashRouter>

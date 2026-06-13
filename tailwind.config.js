@@ -4,7 +4,7 @@ export default {
   theme: {
     extend: {
       colors: {
-        // WatchWorthy palette — darker and more cinematic than Netflix.
+        // Filmsmith palette — darker and more cinematic than Netflix.
         ink: '#0A0A0F', // deep near-black background
         surface: '#12121A', // rich dark cards
         'surface-2': '#1A1A24', // raised cards / hover

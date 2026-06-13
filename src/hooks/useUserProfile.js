@@ -18,7 +18,7 @@
 
 import { useCallback, useEffect, useState } from 'react';
 
-const STORAGE_KEY = 'watchworthy_profile';
+const STORAGE_KEY = 'filmsmith_profile';
 
 const EMPTY_PROFILE = {
   onboarded: false,

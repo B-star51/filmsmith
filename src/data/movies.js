@@ -1,5 +1,5 @@
 // ──────────────────────────────────────────────────────────────────────────
-// WatchWorthy movie dataset
+// Filmsmith movie dataset
 // Fully local — the app works offline except for the Claude/GitHub agent call.
 // `mood_tags` and `duration_mins` are the primary signals the agent filters on.
 // ──────────────────────────────────────────────────────────────────────────

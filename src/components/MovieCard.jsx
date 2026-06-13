@@ -1,13 +1,13 @@
 // MovieCard — the signature browse card.
 // On hover the poster zooms and a gradient overlay reveals the critic score,
-// streaming badges and critic blurb. Also shows the personalised WatchWorthy
+// streaming badges and critic blurb. Also shows the personalised Filmsmith
 // Score, and a "Convince Me" button that flips the card to a tailored pitch.
 
 import { useState } from 'react';
 import Poster from './Poster.jsx';
 import { StreamingBadges } from './StreamingBadge.jsx';
 import { trailerWatchUrl } from '../data/movies.js';
-import { calculateWatchWorthyScore, scoreTone } from '../lib/watchworthyScore.js';
+import { calculateFilmsmithScore, scoreTone } from '../lib/filmsmithScore.js';
 import { convinceMe } from '../lib/agent.js';
 
 function ScoreChip({ score }) {
@@ -25,8 +25,8 @@ const WW_TONE = {
   grey: 'bg-white/5 text-white/55 ring-white/10',
 };
 
-// The personalised WatchWorthy Score badge (or the "unlock" hint).
-export function WatchWorthyBadge({ ww, className = '' }) {
+// The personalised Filmsmith Score badge (or the "unlock" hint).
+export function FilmsmithBadge({ ww, className = '' }) {
   if (!ww) {
     return (
       <span
@@ -41,7 +41,7 @@ export function WatchWorthyBadge({ ww, className = '' }) {
       className={`inline-flex items-center gap-1.5 rounded-lg px-2 py-1 text-[11px] font-bold uppercase tracking-wide ring-1 ${WW_TONE[scoreTone(ww.score)]} ${className}`}
       title={`Critic ${ww.breakdown.critic}% · genre fit ${ww.breakdown.genreBonus} · mood fit ${ww.breakdown.moodBonus}`}
     >
-      <span className="grid h-3.5 w-3.5 place-items-center rounded-[3px] bg-current/20 text-[8px]">WW</span>
+      <span className="grid h-3.5 w-3.5 place-items-center rounded-[3px] bg-current/20 text-[8px]">FS</span>
       {ww.score}% for you
     </span>
   );
@@ -50,7 +50,7 @@ export function WatchWorthyBadge({ ww, className = '' }) {
 export default function MovieCard({ movie, onAdd, onReject, onWatched, onOpenDetails, userProfile, state, compact = false }) {
   const isWatchlist = state === 'watchlist';
   const isRejected = state === 'rejected';
-  const ww = calculateWatchWorthyScore(movie, userProfile);
+  const ww = calculateFilmsmithScore(movie, userProfile);
 
   const [showPitch, setShowPitch] = useState(false);
   const [pitch, setPitch] = useState('');
@@ -127,9 +127,9 @@ export default function MovieCard({ movie, onAdd, onReject, onWatched, onOpenDet
           <span className="truncate">{movie.genre.join(' · ')}</span>
         </div>
 
-        {/* WatchWorthy Score */}
+        {/* Filmsmith Score */}
         <div className="mt-2">
-          <WatchWorthyBadge ww={ww} />
+          <FilmsmithBadge ww={ww} />
         </div>
 
         {/* Convince me */}

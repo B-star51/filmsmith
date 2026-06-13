@@ -22,7 +22,7 @@
   <rect width="1040" height="640" fill="#0A0A0F" />
 
   <!-- Title -->
-  <text x="40" y="44" fill="#FFFFFF" font-size="26" font-weight="800">WatchWorthy <tspan fill="#9F67FF">— Architecture</tspan></text>
+  <text x="40" y="44" fill="#FFFFFF" font-size="26" font-weight="800">Filmsmith <tspan fill="#9F67FF">— Architecture</tspan></text>
   <text x="40" y="66" class="sub">AI film-recommendation engine · Microsoft Agents League · Creative Apps track</text>
 
   <!-- ───────────── BUILD / DEV LANE ───────────── -->
@@ -43,7 +43,7 @@
 
     <rect x="660" y="124" width="160" height="62" class="card" rx="12" />
     <text x="740" y="152" text-anchor="middle" class="tt">GitHub repo</text>
-    <text x="740" y="170" text-anchor="middle" class="sub">B-star51/watchworthy</text>
+    <text x="740" y="170" text-anchor="middle" class="sub">B-star51/filmsmith</text>
 
     <rect x="862" y="124" width="154" height="62" class="card" rx="12" />
     <text x="939" y="152" text-anchor="middle" class="tt">Vite build</text>
@@ -69,7 +69,7 @@
   <text x="326" y="308" text-anchor="middle" class="sub">Netflix-style feed</text>
 
   <rect x="458" y="258" width="214" height="72" rx="12" fill="url(#agentG)" stroke="#9F67FF" stroke-width="1.5" />
-  <text x="565" y="288" text-anchor="middle" class="t" fill="#FFFFFF">WatchWorthy Agent</text>
+  <text x="565" y="288" text-anchor="middle" class="t" fill="#FFFFFF">Filmsmith Agent</text>
   <text x="565" y="307" text-anchor="middle" fill="#E9DEFF" font-size="11.5">multi-step tool-use loop</text>
 
   <rect x="714" y="262" width="302" height="64" class="card" rx="12" />
@@ -101,7 +101,7 @@
 
   <!-- Row C: state + extras -->
   <rect x="44"  y="486" width="208" height="64" class="card" rx="12" />
-  <text x="148" y="512" text-anchor="middle" class="tt">WatchWorthy Score</text>
+  <text x="148" y="512" text-anchor="middle" class="tt">Filmsmith Score</text>
   <text x="148" y="530" text-anchor="middle" class="sub">explainable, local JS</text>
 
   <rect x="268" y="486" width="180" height="64" class="card" rx="12" />

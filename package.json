@@ -1,9 +1,9 @@
 {
-  "name": "watchworthy",
+  "name": "filmsmith",
   "private": true,
   "version": "1.0.0",
   "type": "module",
-  "description": "WatchWorthy — a Netflix-style AI movie recommendation engine powered by an embedded Claude reasoning agent.",
+  "description": "Filmsmith — a Netflix-style AI movie recommendation engine powered by an embedded Claude reasoning agent.",
   "scripts": {
     "dev": "vite",
     "build": "vite build",

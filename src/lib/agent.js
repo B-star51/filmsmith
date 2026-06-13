@@ -1,5 +1,5 @@
 // ════════════════════════════════════════════════════════════════════════════
-// WatchWorthy Recommendation Agent
+// Filmsmith Recommendation Agent
 // ════════════════════════════════════════════════════════════════════════════
 //
 // THE MULTI-STEP REASONING CHAIN  (this is what the hackathon judges should read)
@@ -53,7 +53,7 @@ const GITHUB_URL = 'https://models.github.ai/inference/chat/completions';
 // (localStorage), which is preferred for deployed demos so no key ships in the
 // bundle. localStorage always wins if present.
 
-const LS_SETTINGS = 'watchworthy_agent_settings';
+const LS_SETTINGS = 'filmsmith_agent_settings';
 
 export function getAgentSettings() {
   let stored = {};
@@ -97,7 +97,7 @@ export function activeProviderStatus() {
 
 // ── Prompt construction ──────────────────────────────────────────────────────
 
-const SYSTEM_PROMPT = `You are WatchWorthy's recommendation agent. You reason carefully and transparently.
+const SYSTEM_PROMPT = `You are Filmsmith's recommendation agent. You reason carefully and transparently.
 
 When recommending a movie, follow these exact steps:
 1. Parse the user's current mood and time available
@@ -124,7 +124,7 @@ Return ONLY a JSON object (no markdown, no prose around it) with keys:
     "Primary pick selected: Parasite"),
   primary_pick (exact movie title from dataset),
   backup_pick (exact movie title from dataset),
-  watchworthy_score (integer 0-100, how well the primary pick fits THIS user),
+  filmsmith_score (integer 0-100, how well the primary pick fits THIS user),
   explanation (string, warm and personal, 2-3 sentences).`;
 
 // Builds the single user-turn message that carries all the structured context.
@@ -315,7 +315,7 @@ function shapeResult(raw, source) {
       : [String(raw.reasoning_steps || 'Reasoned through mood, time and history.')],
     primary_pick: primary || backup,
     backup_pick: backup && backup !== primary ? backup : null,
-    watchworthy_score: Number.isFinite(raw.watchworthy_score) ? raw.watchworthy_score : null,
+    filmsmith_score: Number.isFinite(raw.filmsmith_score) ? raw.filmsmith_score : null,
     explanation: raw.explanation || 'Here is a pick I think fits your mood right now.',
   };
 }
@@ -527,12 +527,12 @@ export async function recommendMovie({ profile, sessionAnswers }) {
   } catch (err) {
     // Surface the error in the local result so the UI can show a gentle notice.
     const local = localReasoningEngine({ profile, sessionAnswers });
-    local.fallbackNotice = `Live agent unavailable (${err.message}) — used WatchWorthy's built-in reasoning engine.`;
+    local.fallbackNotice = `Live agent unavailable (${err.message}) — used Filmsmith's built-in reasoning engine.`;
     return local;
   }
 
   const local = localReasoningEngine({ profile, sessionAnswers });
-  local.fallbackNotice = 'No API key configured — using WatchWorthy\'s built-in local reasoning engine. Add a key in Settings (⚙) for the live Claude agent.';
+  local.fallbackNotice = 'No API key configured — using Filmsmith\'s built-in local reasoning engine. Add a key in Settings (⚙) for the live Claude agent.';
   return local;
 }
 
@@ -540,7 +540,7 @@ export async function recommendMovie({ profile, sessionAnswers }) {
 // Uses the live provider when a key is set, else a deterministic local pitch so
 // the feature always returns something compelling (demo-safe).
 
-const PITCH_SYSTEM = `You are WatchWorthy's persuasion agent. Write a punchy, personalised 3-sentence pitch for why THIS specific user should watch THIS specific film tonight.
+const PITCH_SYSTEM = `You are Filmsmith's persuasion agent. Write a punchy, personalised 3-sentence pitch for why THIS specific user should watch THIS specific film tonight.
 
 Rules:
 - Reference something specific from their watch history or preferences

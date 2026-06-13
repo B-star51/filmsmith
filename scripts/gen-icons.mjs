@@ -1,4 +1,4 @@
-// Generates WatchWorthy PWA icons (PNG) with no external dependencies.
+// Generates Filmsmith PWA icons (PNG) with no external dependencies.
 // Draws the brand mark — a violet disc with a gold "play" triangle on the deep
 // ink background — at 192 and 512 px. Run: `node scripts/gen-icons.mjs`.
 

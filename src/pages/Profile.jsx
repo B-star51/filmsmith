@@ -132,7 +132,7 @@ export default function Profile({ profile, profileApi, onWatched, onOpenDetails 
       <section className="border-t border-white/5 pt-8">
         <button
           onClick={() => {
-            if (confirm('Reset your entire WatchWorthy profile? This clears history, watchlist and onboarding.')) {
+            if (confirm('Reset your entire Filmsmith profile? This clears history, watchlist and onboarding.')) {
               profileApi.resetProfile();
             }
           }}

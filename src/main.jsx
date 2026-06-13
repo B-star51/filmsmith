@@ -9,7 +9,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
   </React.StrictMode>,
 );
 
-// Register the service worker so WatchWorthy is installable + works offline.
+// Register the service worker so Filmsmith is installable + works offline.
 // Production only — leaving it off in `npm run dev` keeps Vite HMR clean.
 // To test the install prompt locally: `npm run build && npm run preview`.
 if (import.meta.env.PROD && 'serviceWorker' in navigator) {

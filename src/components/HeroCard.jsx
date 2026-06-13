@@ -5,7 +5,7 @@
 import Poster from './Poster.jsx';
 import { StreamingBadges } from './StreamingBadge.jsx';
 import { trailerWatchUrl } from '../data/movies.js';
-import { calculateWatchWorthyScore, scoreTone } from '../lib/watchworthyScore.js';
+import { calculateFilmsmithScore, scoreTone } from '../lib/filmsmithScore.js';
 
 const HERO_TONE = {
   violet: 'text-violet-soft',
@@ -15,7 +15,7 @@ const HERO_TONE = {
 
 export default function HeroCard({ movie, label = 'Picked for You', reason, onAdd, onAskAgent, onOpenDetails, userProfile, isOnWatchlist }) {
   if (!movie) return null;
-  const ww = calculateWatchWorthyScore(movie, userProfile);
+  const ww = calculateFilmsmithScore(movie, userProfile);
 
   return (
     <section className="relative overflow-hidden rounded-3xl ring-1 ring-white/10">
@@ -63,7 +63,7 @@ export default function HeroCard({ movie, label = 'Picked for You', reason, onAd
                 {ww.score}%
               </span>
               <span className="text-xs font-semibold uppercase tracking-widest text-white/50">
-                WatchWorthy
+                Filmsmith
                 <br />
                 Matched to your taste
               </span>

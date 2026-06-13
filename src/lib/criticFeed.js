@@ -13,7 +13,7 @@ import { getAgentSettings } from './agent.js';
 
 const ANTHROPIC_URL = 'https://api.anthropic.com/v1/messages';
 const ANTHROPIC_MODEL = 'claude-sonnet-4-6';
-const CACHE_PREFIX = 'watchworthy_critics_';
+const CACHE_PREFIX = 'filmsmith_critics_';
 const TTL_MS = 6 * 60 * 60 * 1000; // 6 hours
 
 function cacheKey(movie) {
@@ -45,7 +45,7 @@ function fallback(movie) {
     fresh_score: movie.critic_score,
     consensus: movie.critic_blurb,
     top_quote: movie.critic_blurb,
-    source: 'WatchWorthy archive',
+    source: 'Filmsmith archive',
     last_updated: 'from our notes',
     live: false,
   };

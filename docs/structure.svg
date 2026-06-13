@@ -25,7 +25,7 @@
 
   <!-- tree -->
   <g>
-    <text x="44" y="110"><tspan class="dir">watchworthy/</tspan></text>
+    <text x="44" y="110"><tspan class="dir">filmsmith/</tspan></text>
 
     <text x="44" y="138"><tspan class="tree">├── </tspan><tspan class="dir">src/</tspan></text>
 
@@ -39,7 +39,7 @@
     <text x="44" y="214" text-anchor="start"><tspan x="44" class="star" font-size="12.5"> </tspan></text>
     <text x="346" y="214" class="star" font-size="13" font-weight="700">★ the brain</text>
 
-    <text x="44" y="242"><tspan class="tree">│   ├── </tspan><tspan class="path">lib/watchworthyScore.js</tspan></text>
+    <text x="44" y="242"><tspan class="tree">│   ├── </tspan><tspan class="path">lib/filmsmithScore.js</tspan></text>
     <text x="360" y="242" class="cmt"># explainable match score (pure JS, instant)</text>
 
     <text x="44" y="270"><tspan class="tree">│   ├── </tspan><tspan class="path">lib/criticFeed.js</tspan></text>

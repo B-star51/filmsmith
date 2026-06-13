@@ -32,7 +32,7 @@
   </g>
 
   <!-- Wordmark -->
-  <text x="72" y="150" font-size="84" font-weight="800" letter-spacing="-1" fill="#FFFFFF">WATCH<tspan fill="#9F67FF">WORTHY</tspan></text>
+  <text x="72" y="150" font-size="84" font-weight="800" letter-spacing="-1" fill="#FFFFFF">FILM<tspan fill="#9F67FF">SMITH</tspan></text>
 
   <!-- Tagline -->
   <text x="76" y="200" class="muted">An AI film curator that reasons like a friend who knows your taste.</text>
@@ -43,7 +43,7 @@
     <text x="192" y="264" text-anchor="middle" class="chipt">Multi-step AI agent</text>
 
     <rect x="320" y="236" width="226" height="44" rx="22" class="chip" />
-    <text x="433" y="264" text-anchor="middle" class="chipt">WatchWorthy Score</text>
+    <text x="433" y="264" text-anchor="middle" class="chipt">Filmsmith Score</text>
 
     <rect x="558" y="236" width="196" height="44" rx="22" class="chip" />
     <text x="656" y="264" text-anchor="middle" class="chipt">Live Critic Feed</text>

@@ -1,4 +1,4 @@
-feat: WatchWorthy — Complete AI movie recommendation engine with multi-step reasoning agent
+feat: Filmsmith — Complete AI movie recommendation engine with multi-step reasoning agent
 
 Netflix-style film curator with an embedded multi-step reasoning agent (Claude / GitHub Models) 
 for the Microsoft Agents League Hackathon — Creative Apps track.
@@ -16,7 +16,7 @@ Phase 2: Real Tool-Use Agent Loop & UX Polish
 - Claude tool-use loop: filter_by_mood_and_time, check_user_history, score_candidates
   Tools execute locally; iterate until final JSON — browser-direct via Anthropic API
 - Agent Thinking UI: Typewriter reasoning trace replaces spinner
-- WatchWorthy Score: Explainable composite (critic 40% + genre fit 35% + mood fit 25%)
+- Filmsmith Score: Explainable composite (critic 40% + genre fit 35% + mood fit 25%)
   Colour-coded "% for you" badge; "Rate films to unlock" hint
 - Convince Me: Per-card personalised 3-sentence pitch (Claude/GitHub or local fallback)
 - Live Critic Feed: "Fresh From the Critics" for cinema releases via Claude web_search
@@ -51,7 +51,7 @@ KEY ARCHITECTURE:
 - Explicit 6-step reasoning chain returned to UI (transparent agent)
 - Deterministic local fallback when no key/network
 - Browser-direct API calls; keys stored in localStorage only
-- Explainable WatchWorthy Score with breakdown
+- Explainable Filmsmith Score with breakdown
 - Graceful degradation for all features
 
 COPILOT USAGE:

@@ -1,9 +1,9 @@
 // ──────────────────────────────────────────────────────────────────────────
-// WatchWorthy Score — a deterministic, explainable match score (0–100) computed
+// Filmsmith Score — a deterministic, explainable match score (0–100) computed
 // in plain JS (no AI), so it's instant and never fails. It blends the film's
 // critic score with how well the film fits THIS user's taste + current mood.
 //
-//   WatchWorthy = critic_score*0.40 + genre_match*0.35 + mood_match*0.25
+//   Filmsmith = critic_score*0.40 + genre_match*0.35 + mood_match*0.25
 //
 // Returns `null` when the user has no taste signal yet (first visit) so the UI
 // can show "Rate films to unlock your score" instead of a meaningless number.
@@ -28,7 +28,7 @@ export function topGenres(userProfile, limit = 3) {
     .map(([g]) => g);
 }
 
-export function calculateWatchWorthyScore(movie, userProfile) {
+export function calculateFilmsmithScore(movie, userProfile) {
   if (!movie || !userProfile) return null;
 
   const loved = topGenres(userProfile);
@@ -73,4 +73,4 @@ export function scoreTone(score) {
   return 'grey';
 }
 
-export default calculateWatchWorthyScore;
+export default calculateFilmsmithScore;

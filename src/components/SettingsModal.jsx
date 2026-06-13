@@ -67,7 +67,7 @@ export default function SettingsModal({ open, onClose }) {
         </div>
 
         <div className="mt-4 rounded-xl bg-ink/60 px-4 py-3 text-xs text-white/45 ring-1 ring-white/10">
-          No key? No problem — WatchWorthy falls back to a built-in reasoning engine that runs the same
+          No key? No problem — Filmsmith falls back to a built-in reasoning engine that runs the same
           6-step chain locally, so the demo always works offline.
         </div>
 

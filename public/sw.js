@@ -1,4 +1,4 @@
-// WatchWorthy service worker — makes the app installable and offline-capable.
+// Filmsmith service worker — makes the app installable and offline-capable.
 //
 // Strategy (resilient to Vite's hashed asset filenames):
 //   • navigations  → network-first, fall back to the cached app shell offline.
@@ -7,7 +7,7 @@
 // Cross-origin requests (TMDB posters, the Claude/GitHub API) are left to the
 // network and never cached, so live agent calls always hit the real endpoint.
 
-const CACHE = 'watchworthy-v1';
+const CACHE = 'filmsmith-v1';
 const SHELL = ['./', './index.html', './manifest.webmanifest', './icon-192.png', './icon-512.png'];
 
 self.addEventListener('install', (event) => {

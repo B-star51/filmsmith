@@ -34,7 +34,7 @@ export default function OnboardingQuiz({ open, onComplete }) {
         {/* Brand */}
         <div className="mb-6 text-center">
           <p className="text-display text-4xl text-white">
-            WATCH<span className="text-violet-soft">WORTHY</span>
+            FILM<span className="text-violet-soft">SMITH</span>
           </p>
           <p className="mt-1 text-sm text-white/50">Let's calibrate your taste. Three quick questions.</p>
         </div>
@@ -121,7 +121,7 @@ export default function OnboardingQuiz({ open, onComplete }) {
             disabled={!canAdvance}
             className="rounded-xl bg-violet px-6 py-2.5 text-sm font-semibold text-white shadow-glow transition hover:bg-violet-soft disabled:cursor-not-allowed disabled:bg-white/10 disabled:text-white/40 disabled:shadow-none"
           >
-            {step < total - 1 ? 'Continue' : 'Enter WatchWorthy'}
+            {step < total - 1 ? 'Continue' : 'Enter Filmsmith'}
           </button>
         </div>
       </div>

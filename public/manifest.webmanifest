@@ -1,6 +1,6 @@
 {
-  "name": "WatchWorthy — AI Film Curator",
-  "short_name": "WatchWorthy",
+  "name": "Filmsmith — AI Film Curator",
+  "short_name": "Filmsmith",
   "description": "An AI movie recommendation engine that reasons through your mood, time and taste to find the perfect film.",
   "id": "./",
   "start_url": "./",
